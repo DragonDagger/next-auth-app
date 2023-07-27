@@ -13,7 +13,7 @@ function Signup() {
 
   return (
     <div className="text-center">
-      <h1 className="mt-5 text-5xl font-bold">Signup</h1>
+      <h1 className="mt-5 text-5xl font-bold">Sign up</h1>
       <br />
       <div className="mt-10 mx-auto max-w-sm">
         <div className="flex justify-center mb-4">
@@ -56,6 +56,11 @@ function Signup() {
           />
         </div>
       </div>
+      <button className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg shadow-md mt-6 mb-6">
+        Sign up
+      </button>
+      <br />
+      <Link href="/login">← Login page</Link>
     </div>
   );
 }
