@@ -1,15 +1,29 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { axios } from "axios";
 
 function Signup() {
+  const router = useRouter();
   const [user, setUser] = useState({ email: "", password: "", username: "" });
+  const [buttonToggle, setButtonToggle] = useState(false);
 
   const onSignup = async () => {};
+
+  useEffect(() => {
+    if (
+      user.email.length > 0 &&
+      user.username.length > 0 &&
+      user.password.length > 0
+    ) {
+      setButtonToggle(true);
+    } else {
+      setButtonToggle(false);
+    }
+  }, [user]);
 
   return (
     <div className="text-center">
@@ -56,7 +70,14 @@ function Signup() {
           />
         </div>
       </div>
-      <button className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg shadow-md mt-6 mb-6">
+      <button
+        className={`${
+          buttonToggle
+            ? "bg-yellow-500 hover:bg-yellow-600"
+            : "bg-gray-400 pointer-events-none"
+        } px-4 py-2 text-white font-semibold rounded-lg shadow-md mt-6 mb-6`}
+        disabled={!buttonToggle}
+      >
         Sign up
       </button>
       <br />
