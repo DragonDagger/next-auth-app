@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // 10 rounds for next/express, encrypt password before it enters the db.
     const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hashPassword(password, salt);
+    const hashedPassword = await bcryptjs.hash(password, salt);
 
     const newUser = new User({
       username,
