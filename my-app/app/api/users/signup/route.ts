@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
-    console.log(reqBody);
     const { username, email, password } = reqBody;
 
     const userExists = await User.findOne({ email });
