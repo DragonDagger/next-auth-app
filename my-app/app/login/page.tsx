@@ -1,15 +1,33 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { axios } from "axios";
+import axios from "axios";
 
 function Login() {
+  const router = useRouter();
   const [user, setUser] = useState({ email: "", password: "" });
+  const [buttonToggle, setButtonToggle] = useState(false);
 
-  const onLogin = async () => {};
+  const onLogin = async () => {
+    try {
+      const response = await axios.post("/api/users/login", user);
+      console.log("Login success", response.data);
+      router.push("/profile");
+    } catch (error: any) {
+      console.log("Login failed", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (user.email.length > 0 && user.password.length > 0) {
+      setButtonToggle(true);
+    } else {
+      setButtonToggle(false);
+    }
+  }, [user]);
 
   return (
     <div className="text-center">
@@ -43,7 +61,15 @@ function Login() {
           />
         </div>
       </div>
-      <button className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg shadow-md mt-6 mb-6">
+      <button
+        className={`${
+          buttonToggle
+            ? "bg-green-500 hover:bg-green-600"
+            : "bg-gray-400 pointer-events-none"
+        } px-4 py-2 text-white font-semibold rounded-lg shadow-md mt-6 mb-6`}
+        disabled={!buttonToggle}
+        onClick={onLogin}
+      >
         Login
       </button>
       <br />

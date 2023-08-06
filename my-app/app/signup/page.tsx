@@ -4,14 +4,22 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { axios } from "axios";
+import axios from "axios";
 
 function Signup() {
   const router = useRouter();
   const [user, setUser] = useState({ email: "", password: "", username: "" });
   const [buttonToggle, setButtonToggle] = useState(false);
 
-  const onSignup = async () => {};
+  const onSignup = async () => {
+    try {
+      const response = await axios.post("/api/users/signup", user);
+      console.log("signup success", response.data);
+      router.push("/login");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     if (
@@ -77,6 +85,7 @@ function Signup() {
             : "bg-gray-400 pointer-events-none"
         } px-4 py-2 text-white font-semibold rounded-lg shadow-md mt-6 mb-6`}
         disabled={!buttonToggle}
+        onClick={onSignup}
       >
         Sign up
       </button>
